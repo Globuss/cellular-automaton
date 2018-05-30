@@ -11,10 +11,15 @@ export class DashboardComponent implements AfterViewInit {
     ctx: CanvasRenderingContext2D;
     grid: Grid;
     delayBetweenFrames: number;
+    height: number;
+    width: number;
 
     constructor(protected shapeService: ShapeService) {
         this.delayBetweenFrames = 0;
+        this.height = 400;
+        this.width = 400;
     }
+
     @ViewChild('myCanvas') myCanvas: ElementRef;
 
     // ngAfterViewInit is called only after the view did load and the canvas is ready
@@ -40,12 +45,12 @@ export class DashboardComponent implements AfterViewInit {
     }
 
     drawGridOnCanvas() {
-        let liveCount = 0;
+        // let liveCount = 0;
         for (let row = 1; row < this.grid.getRows; row++) { // iterate through rows
             for (let column = 1; column <  this.grid.getColumn; column++) { // iterate through columns
                 if (this.grid[row][column] === 1) {
                     this.ctx.fillRect(row, column, 1, 1);
-                    liveCount++;
+                    // liveCount++;
                 }
             }
         }
@@ -84,9 +89,11 @@ export class DashboardComponent implements AfterViewInit {
     // shape inside the grid automatically for us
     switchShapeTapped(type) {
         this.grid = null;
+        this.height = this.myCanvas.nativeElement.clientHeight;
+        this.width = this.myCanvas.nativeElement.clientWidth;
         // I think this (400 hardcoded) is more readable in less code than
         // decalre a variable because we use it only once
-        this.grid = new Grid(400,400);
+        this.grid = new Grid(this.width, this.height);
         this.shapeService.initShapeType(type, this.grid);
         this.start();
     }
