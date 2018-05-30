@@ -45,4 +45,18 @@ export class Grid extends Array  {
         totalCells += this[row + 1][column + 1] || 0; // bottom right
         return totalCells;
     }
+
+    // check surronding cells left & right
+    checkSituationCells(row, column, rule){
+        let situation = 0;
+
+        situation += (this[row][column - 1] || 0); // left
+        situation += (this[row][column] || 0) * 2;
+        situation += (this[row][column + 1] || 0) * 4; // right
+
+        return rule[situation];
+        
+    }
+
+
 }
