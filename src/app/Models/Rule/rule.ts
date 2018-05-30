@@ -7,7 +7,7 @@ export class Rule extends Array  {
     }
 
     _build(cases: Array<boolean>) {
-        var array_size = Math.min(this.length, cases.length);
+        const array_size = Math.min(this.length, cases.length);
 
         for (let i = 0; i < array_size; i++) {
             this[i] = cases[i];
@@ -19,5 +19,5 @@ export class Rule extends Array  {
             }
         }
     }
-    
+
 }
