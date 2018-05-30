@@ -8,3 +8,10 @@ Cellular automaton based on Angular
 npm install -g @angular/cli
 npm install
 ```
+
+
+```shell
+npm start
+```
+
+go to http://localhost:4200/ 
