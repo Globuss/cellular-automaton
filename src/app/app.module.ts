@@ -31,7 +31,7 @@ import { ShapeService } from './Services/shape.service';
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
-    ShapeService
+    ShapeService,
   ],
 })
 export class AppModule {

@@ -3,22 +3,25 @@
 
 
 import { Injectable } from '@angular/core';
-import { Grid } from '../Models/Grid/grid';
+// import { Grid } from '../Models/Grid/grid';
 
 @Injectable()
 export class ShapeService {
   shapeType;
   constructor() {
-    // currently only 2 types, but using this service is possible to add more shapes easily
+    // currently only 2 types, but using this service is possible to
+    // add more shapes easily
     enum ShapeType {
-      // number here just in case other developer will insert new shape type in the middle of the shapes and not in the end
+      // number here just in case other developer will insert new
+      // shape type in the middle of the shapes and not in the end
       glinder = 0,
-      random = 1
-    }
+      random = 1,
+    };
     this.shapeType = ShapeType;
   }
 
-  // this method is called from app.component when user tapped on the shape he choose.
+  // this method is called from app.component when user tapped on the
+  // shape he choose.
   initShapeType(type, grid) {
     switch (type) {
       case this.shapeType.glinder:
@@ -27,7 +30,7 @@ export class ShapeService {
       case this.shapeType.random:
         this.setRandom(grid);
         break;
-    }
+    };
   }
 
   // guns type shape

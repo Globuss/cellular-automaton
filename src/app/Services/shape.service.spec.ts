@@ -5,7 +5,7 @@ import { ShapeService } from './shape.service';
 describe('ShapeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ShapeService]
+      providers: [ShapeService],
     });
   });
 
