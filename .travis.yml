@@ -1,16 +1,39 @@
 language: node_js
 
+sudo: false
+dist: trusty
+
 node_js:
-  - "8"
+  - '8'
+  - '9'
+  - '10'
+
+cache:
+  directories:
+    - node_modules
+
+branches:
+  only:
+  - master
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y chromium-browser
+  - npm i -g npm@latest
+
+install:
+  - travis_retry npm i
 
 before_script:
-  - npm install -g @angular/cli
-  - npm install
 
 script:
-  - ng test
+  - npm run lint:ci
+  - npm run build:prod
 
+git:
+  depth: 1
