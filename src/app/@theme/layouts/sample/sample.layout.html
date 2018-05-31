@@ -11,13 +11,18 @@
         </nb-sidebar-header>
 
         <div>
-            <a href (click)="openModalCreateRule()" class="btn btn-hero-primary" style="width:100%;margin-bottom: 15px;">
+            <div href (click)="openModalCreateRule()" class="btn btn-hero-primary" style="width:100%;margin-bottom: 15px;">
                 <i class="ion ion-compose"></i>
                 <span>Create new rule</span>
-            </a>
-            <a href class="btn btn-hero-danger" (click)="resetCanvas()" style="width:100%;margin-bottom: 15px;">
+            </div>
+            <div href class="btn btn-hero-danger" (click)="resetCanvas()" style="width:100%;margin-bottom: 15px;">
                 <i class="ion ion-planet"></i> <span>Reset</span>
-            </a>
+            </div>
+
+            <div class="btn btn-success" (click)="start()">
+                <i class="menu-icon nb-compose"></i>
+                <span class="menu-title">Start</span>
+            </div>
         </div>
     </nb-sidebar>
 

@@ -51,8 +51,15 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     ngOnInit() {
  
         this.subscription = this.Util.getClickCall().subscribe(message => {
-         
-            this.reset();
+
+            switch(message.text) {
+                case "reset_canvas":
+                    this.reset();
+                    break;
+                case "start":
+                    this.start();
+                    break;
+            }
          
         });
     }
@@ -77,8 +84,12 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         console.log('coucou');
     }
 
-      // start is a functione which loops by custom frames
       start() {
+
+        if (this.grid == null || this.gridFiller == null) {
+            this.reset();
+        }
+
         this.drawGridOnCanvas();
         this.grid = this.updateGridWithGameRules();
         setTimeout(() => {

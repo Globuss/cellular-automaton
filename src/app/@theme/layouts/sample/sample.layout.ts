@@ -59,9 +59,12 @@ export class SampleLayoutComponent implements OnDestroy {
       });
   }
 
-
   resetCanvas() {
-    this.Util.sendClickCall("Reset Canvas");
+    this.Util.sendClickCall("reset_canvas");
+  }
+
+  start() {
+    this.Util.sendClickCall("start");
   }
 
   ngOnDestroy() {
