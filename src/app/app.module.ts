@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShapeService } from './Services/shape.service';
+import { CallService } from './Services/call.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { ShapeService } from './Services/shape.service';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     ShapeService,
+    CallService,
   ],
 })
 export class AppModule {
