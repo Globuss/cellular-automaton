@@ -1,10 +1,13 @@
 import { NbMenuItem } from '@nebular/theme';
+import { Component } from '@angular/core';
+
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Dashboard',
-    icon: 'nb-home',
-    link: '/pages/dashboard',
+    title: 'Create new rule',
+    icon: 'nb-compose',
+    link: '#',
     home: true,
   },
 ];
+
