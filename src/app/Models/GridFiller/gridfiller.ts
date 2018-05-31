@@ -1,10 +1,10 @@
-import {Grid} from "../Grid/grid"
+import { Grid } from '../Grid/grid';
 
 export abstract class GridFiller {
 
     constructor(private grid: Grid) {}
 
-    public fill(){
+    public fill() {
         for (let i = 0 ; i < this.grid.getRows ; i++) {
             for (let j = 0 ; j < this.grid.getColumn ; j++) {
                 this.grid[i][j] = this.getColor(i, j);
@@ -20,6 +20,6 @@ export abstract class GridFiller {
         return this.grid.getRows;
     }
 
-    protected abstract getColor(i: number, j:number): boolean;
+    protected abstract getColor(i: number, j: number): boolean;
 
 }

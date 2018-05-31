@@ -28,25 +28,29 @@ export class Grid extends Array  {
     _build() {
         for (let i = 0; i < this._rows; i++) {
             this[i] = [];
+            for (let y = 0; y < this._columns; y++) {
+                this[i][y] = 0;
+            }
         }
     }
- 
+
     // check surronding cells left & right
-    checkSituationCells(row, column, rule){
+    checkSituationCells(row, column, rule) {
         let situation = 0;
 
-        situation += (this[row - 1][column - 1] || 0); // top left
-        situation += (this[row] - 1[column] || 0) * 2; // top
-        situation += (this[row - 1][column + 1] || 0) * 4; // top right
-        situation += (this[row][column - 1] || 0) * 8; // middle left
-        situation += (this[row][column] || 0) * 16; // middle
-        situation += (this[row][column + 1] || 0) * 32; // middle right
-        situation += (this[row + 1][column - 1] || 0) * 64; // bottom left
-        situation += (this[row + 1][column] || 0) * 128; // bottom 
-        situation += (this[row + 1][column + 1] || 0) * 256; // bottom right
+        situation += (this[row - 1][column - 1] > 0 ? 1 : 0); // top left
+        situation += (this[row - 1][column] > 0 ? 1 : 0) * 2; // top
+        situation += (this[row - 1][column + 1] > 0 ? 1 : 0) * 4; // top right
+
+        situation += (this[row][column - 1] > 0 ? 1 : 0) * 8; // middle left
+        // situation += (this[row][column] > 0 ? 1 : 0) * 16; // middle
+        situation += (this[row][column + 1] > 0 ? 1 : 0) * 32; // middle right
+
+        situation += (this[row + 1][column - 1] > 0 ? 1 : 0) * 64; // bottom left
+        situation += (this[row + 1][column] > 0 ? 1 : 0) * 128; // bottom
+        situation += (this[row + 1][column + 1] > 0 ? 1 : 0) * 256; // bottom right
 
         return rule[situation];
-        
     }
 
 

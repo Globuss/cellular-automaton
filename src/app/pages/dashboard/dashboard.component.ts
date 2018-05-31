@@ -27,7 +27,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     ctx: CanvasRenderingContext2D;
     grid: Grid;
     delayBetweenFrames: number;
-    rule : Rule; 
+    rule: Rule;
     height: number;
     width: number;
     rows: number;
@@ -41,9 +41,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     alive: number;
 
     constructor(private modalService: NgbModal, protected Util: CallService) {
-        this.delayBetweenFrames = 1000;
-        //let rule_raw = [false, false, false, false, false, false, false, false];
-        let rule_raw = Array(512);
+        this.delayBetweenFrames = 100;
+        // let rule_raw = [false, false, false, false, false, false, false, false];
+        const rule_raw = Array(512).fill(0);
         this.stop = false;
 
         rule_raw[7] = 1;
@@ -134,7 +134,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.rule = new Rule(rule_raw);
         this.height = 400;
         this.width = 400;
-        this.cellSize = 6;
+        this.cellSize = 15;
         this.iteration_number = 0;
         this.chronometer = new Chronometer();
     }
@@ -147,33 +147,33 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         // Add 'implements AfterViewInit' to the class.
         this.ctx = this.myCanvas.nativeElement.getContext('2d');
         this.ctx.fillStyle = '#00ff00';
-        this.ctx.scale(1,1);
+        this.ctx.scale(1, 1);
     }
 
     ngOnInit() {
- 
+
         this.subscription = this.Util.getClickCall().subscribe(message => {
 
-            switch(message.text) {
-                case "reset_canvas":
+            switch ( message.text ) {
+                case 'reset_canvas':
                     this.reset();
                     break;
-                case "start":
+                case 'start':
                     this.start();
                     break;
-                case "open_modal_create_rule":
-                    const activeModal = this.modalService.open(CreateRuleComponent, { size: 'lg', container: 'nb-layout' });
+                case 'open_modal_create_rule':
+                    const activeModal = this.modalService.open(CreateRuleComponent,
+                        { size: 'lg', container: 'nb-layout' });
                     break;
-                case "pause":
+                case 'pause':
                     this.stop = true;
                     break;
-                case "stop":
+                case 'stop':
                     this.stop = true;
                     this.clearGridFromCanvas();
                     this.grid = null;
                     break;
             }
-         
         });
     }
 
@@ -184,26 +184,27 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.chronometer.reset();
         this.stop = false;
 
-        console.log(this.myCanvas.nativeElement.clientHeight);
-        console.log(this.myCanvas.nativeElement.clientWidth);
-
         this.width = this.myCanvas.nativeElement.clientWidth;
         this.height = this.myCanvas.nativeElement.clientHeight;
 
-        this.rows = Math.round(this.myCanvas.nativeElement.clientHeight/(this.cellSize));
-        this.columns = Math.round(this.myCanvas.nativeElement.clientWidth/(this.cellSize));
+        this.columns = Math.round(this.myCanvas.nativeElement.clientHeight / ( this.cellSize));
+        this.rows = Math.round(this.myCanvas.nativeElement.clientWidth / ( this.cellSize));
 
         this.myCanvas.nativeElement.width = this.width;
         this.myCanvas.nativeElement.height = this.height;
 
+
         this.grid = new Grid(this.rows, this.columns);
         this.gridFiller = new RandomGridFiller(this.grid);
 
-        console.log(this.grid.getRows);
-        console.log(this.grid.getColumn);
 
+        // this.gridFiller.fill();
 
-        this.gridFiller.fill();
+        this.grid[1][1] = 1;
+        this.grid[2][2] = 1;
+        this.grid[2][3] = 1;
+        this.grid[1][3] = 1;
+        this.grid[3][2] = 1;
 
         this.drawGridOnCanvas();
     }
@@ -226,16 +227,16 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.drawGridOnCanvas();
         this.grid = this.updateGridWithGameRules();
         setTimeout(() => {
-            if(!this.stop){
+            if ( !this.stop ) {
                 this.iteration_number++;
                 this.launch();
-            }   
+            }
         }, this.delayBetweenFrames);
 
     }
 
     clearGridFromCanvas() {
-        this.ctx.clearRect(0, 0, this.grid.getRows*this.cellSize, this.grid.getColumn*this.cellSize);
+        this.ctx.clearRect(0, 0, this.grid.getRows * this.cellSize, this.grid.getColumn * this.cellSize);
     }
 
     drawGridOnCanvas() {
@@ -244,14 +245,17 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         for (let row = 1; row < this.grid.getRows - 1; row++) { // iterate through rows
             for (let column = 1; column <  this.grid.getColumn - 1; column++) { // iterate through columns
                 if (this.grid[row][column] === 1) {
-                    //this.ctx.fillStyle = '#00ff00';
-                    this.ctx.fillStyle = "rgb("+ Math.round(Math.random() * 255) +","+ Math.round(Math.random() * 255) +","+ Math.round(Math.random() * 255) +")";
-                    this.ctx.fillRect(row*this.cellSize, column*this.cellSize, this.cellSize, this.cellSize);
+                    /*this.ctx.fillStyle = 'rgb(' +
+                                    Math.round(Math.random() * 255) + ',' +
+                                    Math.round(Math.random() * 255) + ',' +
+                                    Math.round(Math.random() * 255) + ')' ;*/
+                    this.ctx.fillStyle = '#00ff00';
+                    this.ctx.fillRect(column * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
                     liveCount++;
-                }else if(this.grid[row][column] === 2){
+                }else if ( this.grid[row][column] === 2 ) {
                     liveCount++;
                     this.ctx.fillStyle = '#0000ff';
-                    this.ctx.fillRect(row*this.cellSize, column*this.cellSize, this.cellSize, this.cellSize);
+                    this.ctx.fillRect(column * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
                 }
             }
         }
@@ -261,9 +265,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     updateGridWithGameRules() {
         const copyGrid = new Grid(this.grid.getRows, this.grid.getColumn);
 
-        for (let row = 1; row <  this.grid.getRows - 1; row++) {
+        for (let row = 1; row < this.grid.getRows - 1; row++) {
             for (let column = 1; column < this.grid.getColumn - 1; column++) {
-                switch(this.grid.checkSituationCells(row, column,this.rule)){
+                switch (this.grid.checkSituationCells(row, column, this.rule)) {
                     case 0:
                         copyGrid[row][column] = 0;
                         break;
@@ -276,6 +280,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     case 3:
                         copyGrid[row][column] = 2;
                         break;
+                    default:
+                        copyGrid[row][column] = 0;
                 }
             }
         }
