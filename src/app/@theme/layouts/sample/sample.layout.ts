@@ -1,3 +1,5 @@
+import { CallService } from './../../../Services/call.service';
+import { DashboardComponent } from './../../../pages/dashboard/dashboard.component';
 import { Component, OnDestroy } from '@angular/core';
 import { delay, withLatestFrom } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -28,7 +30,7 @@ import { StateService } from '../../../@core/data/state.service';
                    [end]="sidebar.id === 'end'">
         <nb-sidebar-header>
           <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
+            <i class="ion ion-social-github"></i> <span>Support UsSS</span>
           </a>
         </nb-sidebar-header>
         <ng-content select="nb-menu"></ng-content>
@@ -37,18 +39,6 @@ import { StateService } from '../../../@core/data/state.service';
       <nb-layout-column class="main-content">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
-
-      <nb-layout-column start class="small" *ngIf="layout.id === 'two-column' || layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-layout-column class="small" *ngIf="layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-layout-footer fixed>
-        <ngx-footer></ngx-footer>
-      </nb-layout-footer>
 
       <nb-sidebar class="settings-sidebar"
                    tag="settings-sidebar"
@@ -62,47 +52,7 @@ import { StateService } from '../../../@core/data/state.service';
 })
 export class SampleLayoutComponent implements OnDestroy {
 
-  subMenu: NbMenuItem[] = [
-    {
-      title: 'PAGE LEVEL MENU',
-      group: true,
-    },
-    {
-      title: 'Buttons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/buttons',
-    },
-    {
-      title: 'Grid',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/grid',
-    },
-    {
-      title: 'Icons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/icons',
-    },
-    {
-      title: 'Modals',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/modals',
-    },
-    {
-      title: 'Typography',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/typography',
-    },
-    {
-      title: 'Animated Searches',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/search-fields',
-    },
-    {
-      title: 'Tabs',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/tabs',
-    },
-  ];
+  
   layout: any = {};
   sidebar: any = {};
 
@@ -114,7 +64,8 @@ export class SampleLayoutComponent implements OnDestroy {
               protected menuService: NbMenuService,
               protected themeService: NbThemeService,
               protected bpService: NbMediaBreakpointsService,
-              protected sidebarService: NbSidebarService) {
+              protected sidebarService: NbSidebarService,
+              protected Util: CallService) {
     this.layoutState$ = this.stateService.onLayoutState()
       .subscribe((layout: string) => this.layout = layout);
 
@@ -135,6 +86,11 @@ export class SampleLayoutComponent implements OnDestroy {
           this.sidebarService.collapse('menu-sidebar');
         }
       });
+  }
+
+
+  resetCanvas() {
+    this.Util.sendClickCall("Reset Canvas");
   }
 
   ngOnDestroy() {
