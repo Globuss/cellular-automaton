@@ -3,7 +3,7 @@
         <ngx-header [position]="sidebar.id === 'start' ? 'normal': 'inverse'"></ngx-header>
     </nb-layout-header>
 
-    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive [end]="sidebar.id === 'end'">
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" [end]="sidebar.id === 'end'">
         <nb-sidebar-header>
             <a href="https://github.com/Globuss/cellular-automaton" class="btn btn-hero-success main-btn">
                 <i class="ion ion-social-github"></i> <span>View project</span>
@@ -11,13 +11,12 @@
         </nb-sidebar-header>
 
         <div>
-            <a class="btn btn-primary">
-                <i class="menu-icon nb-compose"></i>
-                <span class="menu-title">Create new rule</span>
+            <a href (click)="openModalCreateRule()" class="btn btn-hero-primary" style="width:100%;margin-bottom: 15px;">
+                <i class="ion ion-compose"></i>
+                <span>Create new rule</span>
             </a>
-            <a class="btn btn-danger" (click)="resetCanvas()">
-                <i class="menu-icon nb-compose"></i>
-                <span class="menu-title">Reset</span>
+            <a href class="btn btn-hero-danger" (click)="resetCanvas()" style="width:100%;margin-bottom: 15px;">
+                <i class="ion ion-planet"></i> <span>Reset</span>
             </a>
         </div>
     </nb-sidebar>

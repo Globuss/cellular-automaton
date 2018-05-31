@@ -12,10 +12,6 @@ import {
   NbThemeService,
 } from '@nebular/theme';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { CreateRuleComponent } from '../../../Components/Modals/CreateRule/createRule.component';
-
 import { StateService } from '../../../@core/data/state.service';
 
 // TODO: move layouts into the framework
