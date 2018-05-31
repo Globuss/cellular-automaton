@@ -1,27 +1,36 @@
-import { Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { Grid } from '../../Models/Grid/grid';
 import { ShapeService } from '../../Services/shape.service';
 import { Rule } from '../../Models/Rule/rule';
+
+import { CallService } from '../../Services/call.service';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { CreateRuleComponent } from '../../Components/Modals/CreateRule/createRule.component';
 
 @Component({
   selector: 'ngx-dashboard',
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent implements AfterViewInit, OnInit {
     ctx: CanvasRenderingContext2D;
     grid: Grid;
     delayBetweenFrames: number;
     rule : Rule; 
     height: number;
     width: number;
+    subscription: Subscription;
 
-    constructor(public shapeService: ShapeService) {
+    constructor(public shapeService: ShapeService, private modalService: NgbModal, protected Util: CallService) {
         this.delayBetweenFrames = 0;
         let rule_raw = [true, false, true, false, false, true, true, false];
         this.rule = new Rule(rule_raw);
         this.height = 400;
         this.width = 400;
+        const activeModal = this.modalService.open(CreateRuleComponent, { size: 'lg', container: 'nb-layout' });
     }
 
     @ViewChild('myCanvas') myCanvas: ElementRef;
@@ -32,6 +41,19 @@ export class DashboardComponent implements AfterViewInit {
         // Add 'implements AfterViewInit' to the class.
         this.ctx = this.myCanvas.nativeElement.getContext('2d');
         this.ctx.fillStyle = '#00ff00';
+    }
+
+    ngOnInit() {
+ 
+        this.subscription = this.Util.getClickCall().subscribe(message => {
+         
+            this.reset();
+         
+        });
+    }
+
+    reset() {
+        console.log('coucou');
     }
 
       // start is a function which loops by custom frames
