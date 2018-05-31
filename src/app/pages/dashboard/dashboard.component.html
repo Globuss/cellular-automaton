@@ -1,3 +1,4 @@
 <div class="row">
     <canvas #myCanvas style="border:1px solid #000000;"></canvas>
+    <div>Iterations: {{ iteration_number }} | Speed: {{ delayBetweenFrames == 0 ? "unlimited" : 1 / delayBetweenFrames }} / s | {{ chronometer.minutes }}m {{ chronometer.secondes }}s </div>
 </div>

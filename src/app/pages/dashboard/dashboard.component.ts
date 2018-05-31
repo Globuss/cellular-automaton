@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { Grid } from '../../Models/Grid/grid';
 import { Rule } from '../../Models/Rule/rule';
+import { Chronometer } from '../../Models/Chronometer/chronometer';
 
 import { GridFiller } from '../../Models/GridFiller/gridfiller';
 import { CenterGridFiller } from '../../Models/GridFiller/centergridfiller';
@@ -19,7 +20,9 @@ import { CreateRuleComponent } from '../../Components/Modals/CreateRule/createRu
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html',
 })
+
 export class DashboardComponent implements AfterViewInit, OnInit {
+
     ctx: CanvasRenderingContext2D;
     grid: Grid;
     delayBetweenFrames: number;
@@ -28,13 +31,15 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     width: number;
     subscription: Subscription;
     gridFiller: GridFiller;
+    iteration_number: number;
+    chronometer: Chronometer;
 
     constructor(private modalService: NgbModal, protected Util: CallService) {
-        this.delayBetweenFrames = 0;
+        this.delayBetweenFrames = 0.2;
         let rule_raw = [true, false, true, false, false, true, true, false];
         this.rule = new Rule(rule_raw);
-        this.height = 400;
-        this.width = 400;
+        this.iteration_number = 0;
+        this.chronometer = new Chronometer();
     }
 
     @ViewChild('myCanvas') myCanvas: ElementRef;
@@ -69,6 +74,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     reset() {
 
         this.grid = null;
+        this.iteration_number = 0;
+        this.chronometer.reset();
 
         this.height = this.myCanvas.nativeElement.clientHeight;
         this.width = this.myCanvas.nativeElement.clientWidth;
@@ -92,11 +99,21 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.reset();
         }
 
+        this.chronometer.start();
+
+        this.launch();
+
+    }
+
+    launch() {
+
         this.drawGridOnCanvas();
         this.grid = this.updateGridWithGameRules();
         setTimeout(() => {
-            this.start();
+            this.iteration_number++;
+            this.launch();   
         }, this.delayBetweenFrames);
+
     }
 
     clearGridFromCanvas() {
