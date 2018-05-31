@@ -28,6 +28,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     width: number;
     subscription: Subscription;
     gridFiller: GridFiller;
+    cellSize: number;
 
     constructor(private modalService: NgbModal, protected Util: CallService) {
         this.delayBetweenFrames = 0;
@@ -35,6 +36,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.rule = new Rule(rule_raw);
         this.height = 400;
         this.width = 400;
+        this.cellSize = 3;
     }
 
     @ViewChild('myCanvas') myCanvas: ElementRef;
@@ -70,8 +72,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
 
         this.grid = null;
 
-        this.height = this.myCanvas.nativeElement.clientHeight;
-        this.width = this.myCanvas.nativeElement.clientWidth;
+        this.height = Math.round(this.myCanvas.nativeElement.clientHeight/(this.cellSize));
+        this.width = Math.round(this.myCanvas.nativeElement.clientWidth/(this.cellSize));
         console.log(this.height);
         console.log(this.width);
 
@@ -100,16 +102,17 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     clearGridFromCanvas() {
-        this.ctx.clearRect(0, 0, this.grid.getRows, this.grid.getColumn);
+        this.ctx.clearRect(0, 0, this.grid.getRows*this.cellSize, this.grid.getColumn*this.cellSize);
     }
 
     drawGridOnCanvas() {
         this.clearGridFromCanvas();
         // let liveCount = 0;
-        for (let row = 1; row < this.grid.getRows; row++) { // iterate through rows
-            for (let column = 1; column <  this.grid.getColumn; column++) { // iterate through columns
+        console.log(this.grid.getRows);
+        for (let row = 0; row < this.grid.getRows; row++) { // iterate through rows
+            for (let column = 0; column <  this.grid.getColumn; column++) { // iterate through columns
                 if (this.grid[row][column]) {
-                    this.ctx.fillRect(row, column, 1, 1);
+                    this.ctx.fillRect(row*this.cellSize, column*this.cellSize, this.cellSize, this.cellSize);
                     // liveCount++;
                 }
             }
