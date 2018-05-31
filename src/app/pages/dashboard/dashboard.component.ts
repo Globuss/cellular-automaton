@@ -16,7 +16,7 @@ export class DashboardComponent implements AfterViewInit {
     height: number;
     width: number;
 
-    constructor(protected shapeService: ShapeService) {
+    constructor(public shapeService: ShapeService) {
         this.delayBetweenFrames = 0;
         let rule_raw = [true, false, true, false, false, true, true, false];
         this.rule = new Rule(rule_raw);
