@@ -4,6 +4,11 @@ import { Grid } from '../../Models/Grid/grid';
 import { ShapeService } from '../../Services/shape.service';
 import { Rule } from '../../Models/Rule/rule';
 
+import { GridFiller } from '../../Models/GridFiller/gridfiller';
+import { CenterGridFiller } from '../../Models/GridFiller/centergridfiller';
+import { RandomGridFiller } from '../../Models/GridFiller/randomgridfiller';
+import { GridLines } from '../../Models/GridFiller/gridlines';
+
 import { CallService } from '../../Services/call.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +28,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     height: number;
     width: number;
     subscription: Subscription;
+    gridFiller: GridFiller;
 
     constructor(public shapeService: ShapeService, private modalService: NgbModal, protected Util: CallService) {
         this.delayBetweenFrames = 0;
@@ -53,6 +59,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     reset() {
+
+        this.gridFiller.fill();
+
         console.log('coucou');
     }
 
@@ -114,5 +123,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.grid = new Grid(this.width, this.height);
         this.shapeService.initShapeType(type, this.grid);
         this.start();
+    }
+
+    set setGridFiller(type: string){
+        this.gridFiller = new RandomGridFiller(this.grid);
+    }
+
+    get getGridFiller(){
+        return "random";
     }
 }
