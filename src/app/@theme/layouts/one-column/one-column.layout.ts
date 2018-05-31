@@ -12,8 +12,8 @@ import { Component } from '@angular/core';
 
       <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
         <nb-sidebar-header>
-          <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
+          <a href="https://github.com/Globuss/cellular-automaton" class="btn btn-hero-success main-btn">
+            <i class="ion ion-social-github"></i> <span>View project</span>
           </a>
         </nb-sidebar-header>
         <ng-content select="nb-menu"></ng-content>
@@ -29,5 +29,7 @@ import { Component } from '@angular/core';
     </nb-layout>
   `,
 })
+
+
 export class OneColumnLayoutComponent {
 }
