@@ -1,12 +1,17 @@
 export class Rule extends Array  {
 
-    constructor(cases: Array<boolean>) {
-        super(8);
+    // 0 : die
+    // 1 : born
+    // 2 : same state
+    // 3 : change
+
+    constructor(cases: Array<number>) {
+        super(512);
         Object.setPrototypeOf(this, Rule.prototype);
         this._build(cases);
     }
 
-    _build(cases: Array<boolean>) {
+    _build(cases: Array<number>) {
         const array_size = Math.min(this.length, cases.length);
 
         for (let i = 0; i < array_size; i++) {
