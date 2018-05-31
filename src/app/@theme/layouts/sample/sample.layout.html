@@ -14,7 +14,7 @@
             
             <div class="ng-content form-group;" style="margin-bottom: 20px; margin-top: 50px">
                 <select class="ng-content form-control">
-                        <option value="GLife" selected="selected">Choose a rule</option>
+                        <option value="" selected disabled hidden>Choose a rule</option>
                         <option value="GLife"> Game of life</option>
                         <option value="254">Rule 254</option>
                         <option value="Tree">Tree</option>
@@ -28,39 +28,39 @@
             
             <div class="ng-content form-group;" style="margin-bottom: 20px;">
                 <select class="ng-content form-control">
-                    <option value="GLife" selected="selected">Choose a model</option>
+                        <option value="" selected disabled hidden>Choose a model</option>
                     <option value="GLife">Random</option>
                     <option value="254">Leaf</option>
                     <option value="Tree">Round</option>
                 </select>
             </div>
 
-            <div href (click)="openModalCreateRule()" class="btn btn-hero-primary" style="width:100%;margin-bottom: 100px;">
+            <div href (click)="openModalCreateRule()" class="btn btn-hero-primary " style="width:100%;margin-bottom: 100px;">
                 <i class="ion ion-compose"></i>
                 <span>Create new model</span>
             </div>
 
 
-            <div class="btn btn-danger" (click)="start()" style="width:100%;margin-bottom: 20px;">
+            <div class="btn btn-warning" (click)="start()" style="width:100%;margin-bottom: 20px;">
                 <i class="menu-icon nb-play"></i>
                 <span>Start</span>
             </div>
 
             <div style="display: flex;">
                 <div style="width: 33%;padding-right: 6px;">
-                    <div class="btn btn-danger" (click)="pause()" style="width:100%;">
+                    <div class="btn btn-warning" (click)="pause()" style="width:100%;">
                         <i class="menu-icon nb-pause"></i>
                     </div>
                 </div>
 
                 <div style="width: 33%; padding-left: 3px; padding-right: 3px;">
-                    <div class="btn btn-danger" (click)="stop()" style="width:100%;">
+                    <div class="btn btn-warning" (click)="stop()" style="width:100%;">
                         <i class="menu-icon nb-square"></i>
                     </div>
                 </div>
                 <div style="width: 33%;padding-left: 6px;">
-                    <div href class="btn btn-danger" (click)="resetCanvas()" style="width:100%;">
-                    <i class="menu-icon nb-loop"></i>
+                    <div href class="btn btn-warning" (click)="resetCanvas()" style="width:100%;">
+                    <i class="icon ion-refresh"></i>
                     </div>
                 </div>
             </div>
