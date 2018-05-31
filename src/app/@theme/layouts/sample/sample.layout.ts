@@ -71,6 +71,14 @@ export class SampleLayoutComponent implements OnDestroy {
     this.Util.sendClickCall("start");
   }
 
+  stop() {
+    this.Util.sendClickCall("stop");
+  }
+
+  pause() {
+    this.Util.sendClickCall("pause");
+  }
+
   ngOnDestroy() {
     this.layoutState$.unsubscribe();
     this.sidebarState$.unsubscribe();
