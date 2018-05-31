@@ -10,18 +10,40 @@
             </a>
         </nb-sidebar-header>
 
-        <div>
+        <div style="margin: auto;">
+            
+            // Choose the rule 
             <div href (click)="openModalCreateRule()" class="btn btn-hero-primary" style="width:100%;margin-bottom: 15px;">
                 <i class="ion ion-compose"></i>
                 <span>Create new rule</span>
             </div>
-            <div href class="btn btn-hero-danger" (click)="resetCanvas()" style="width:100%;margin-bottom: 15px;">
-                <i class="ion ion-planet"></i> <span>Reset</span>
+            
+            //chose start model
+
+            //chrono or itération
+
+            <div class="btn btn-danger" (click)="start()" style="width:100%;margin-bottom: 10px;">
+                <i class="menu-icon nb-play"></i>
+                <span>Start</span>
             </div>
 
-            <div class="btn btn-success" (click)="start()">
-                <i class="menu-icon nb-compose"></i>
-                <span class="menu-title">Start</span>
+            <div style="display: flex;">
+                <div style="width: 33%;padding-right: 6px;">
+                    <div class="btn btn-danger" (click)="pause()" style="width:100%;">
+                        <i class="menu-icon nb-pause"></i>
+                    </div>
+                </div>
+
+                <div style="width: 33%; padding-left: 3px; padding-right: 3px;">
+                    <div class="btn btn-danger" (click)="stop()" style="width:100%;">
+                        <i class="menu-icon nb-square"></i>
+                    </div>
+                </div>
+                <div style="width: 33%;padding-left: 6px;">
+                    <div href class="btn btn-danger" (click)="resetCanvas()" style="width:100%;">
+                    <i class="menu-icon nb-loop"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </nb-sidebar>
