@@ -35,7 +35,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.rule = new Rule(rule_raw);
         this.height = 400;
         this.width = 400;
-        const activeModal = this.modalService.open(CreateRuleComponent, { size: 'lg', container: 'nb-layout' });
     }
 
     @ViewChild('myCanvas') myCanvas: ElementRef;
@@ -58,6 +57,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     break;
                 case "start":
                     this.start();
+                    break;
+                case "open_modal_create_rule":
+                    const activeModal = this.modalService.open(CreateRuleComponent, { size: 'lg', container: 'nb-layout' });
                     break;
             }
          

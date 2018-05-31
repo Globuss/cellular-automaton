@@ -63,6 +63,10 @@ export class SampleLayoutComponent implements OnDestroy {
     this.Util.sendClickCall("reset_canvas");
   }
 
+  openModalCreateRule() {
+    this.Util.sendClickCall("open_modal_create_rule");
+  }
+
   start() {
     this.Util.sendClickCall("start");
   }
