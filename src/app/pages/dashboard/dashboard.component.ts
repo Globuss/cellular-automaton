@@ -7,6 +7,11 @@ import { Chronometer } from '../../Models/Chronometer/chronometer';
 
 import { GridFiller } from '../../Models/GridFiller/gridfiller';
 import { GliderFiller } from '../../Models/GridFiller/GameOfLife/glider';
+import { LoafFiller } from '../../Models/GridFiller/GameOfLife/loaf';
+import { RandomGridFiller } from '../../Models/GridFiller/FullGridFiller/randomgridfiller';
+import { CenterGridFiller } from '../../Models/GridFiller/FullGridFiller/centergridfiller';
+import { GridLinesFiller } from '../../Models/GridFiller/FullGridFiller/gridlinesfiller';
+import { CrossGridFiller } from '../../Models/GridFiller/FullGridFiller/crossgridfiller';
 
 import { CallService } from '../../Services/call.service';
 
@@ -156,6 +161,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.subscription = this.Util.getClickCall().subscribe(message => {
 
             switch ( message.text ) {
+
+                // We treat user actions
                 case 'reset_canvas':
                     this.reset();
                     break;
@@ -174,8 +181,33 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     this.clearGridFromCanvas();
                     this.grid = null;
                     break;
+
+                // We treat all fillers
+                case 'filler_loaf':
+                    this.applyNewFiller(new LoafFiller());
+                    break;
+                case 'filler_glider':
+                    this.applyNewFiller(new GliderFiller());
+                    break;
+                case 'filler_random':
+                    this.applyNewFiller(new RandomGridFiller());
+                    break;
+                case 'filler_center':
+                    this.applyNewFiller(new CenterGridFiller());
+                    break;
+                case 'filler_gridlines':
+                    this.applyNewFiller(new GridLinesFiller());
+                    break;
+                case 'filler_cross':
+                    this.applyNewFiller(new CrossGridFiller());
+                break;    
             }
         });
+    }
+
+    applyNewFiller(filler: GridFiller) {
+        this.gridFiller = filler;
+        this.reset();
     }
 
     reset() {

@@ -67,6 +67,14 @@ export class SampleLayoutComponent implements OnDestroy {
     this.Util.sendClickCall("open_modal_create_rule");
   }
 
+  gameChanged(newGame: string) {
+    this.Util.sendClickCall("game_" + newGame);
+  }
+
+  fillerChanged(newRule: string) {
+    this.Util.sendClickCall("filler_" + newRule);
+  }
+
   start() {
     this.Util.sendClickCall("start");
   }

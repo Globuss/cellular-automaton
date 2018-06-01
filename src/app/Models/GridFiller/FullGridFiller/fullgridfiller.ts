@@ -10,6 +10,6 @@ export abstract class FullGridFiller extends GridFiller {
         }
     }
 
-    protected abstract getColor(i: number, j: number): boolean;
+    protected abstract getColor(i: number, j: number): number;
 
 }

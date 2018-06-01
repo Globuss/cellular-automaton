@@ -13,11 +13,11 @@
         <div style="margin: auto;">
             
             <div class="ng-content form-group;" style="margin-bottom: 20px; margin-top: 50px">
-                <select class="ng-content form-control">
+                <select class="ng-content form-control"  (change)="gameChanged($event.target.value)">
                         <option value="" selected disabled hidden>Choose a rule</option>
-                        <option value="GLife"> Game of life</option>
+                        <option value="game_of_life"> Game of life</option>
                         <option value="254">Rule 254</option>
-                        <option value="Tree">Tree</option>
+                        <option value="tree">Tree</option>
                 </select>
             </div>
 
@@ -27,11 +27,14 @@
             </div>
             
             <div class="ng-content form-group;" style="margin-bottom: 20px;">
-                <select class="ng-content form-control">
+                <select class="ng-content form-control" (change)="fillerChanged($event.target.value)">
                         <option value="" selected disabled hidden>Choose a model</option>
-                    <option value="GLife">Random</option>
-                    <option value="254">Leaf</option>
-                    <option value="Tree">Round</option>
+                    <option value="random">Random</option>
+                    <option value="loaf">Loaf</option>
+                    <option value="glider">Glider</option>
+                    <option value="center">Center line</option>
+                    <option value="gridlines">Grid lines</option>
+                    <option value="cross">Cross</option>
                 </select>
             </div>
 
