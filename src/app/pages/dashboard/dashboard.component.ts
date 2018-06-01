@@ -39,6 +39,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     alive: number;
 
     constructor(private modalService: NgbModal, protected Util: CallService) {
+
+        this.gridFiller = new GliderFiller();
+
         this.delayBetweenFrames = 100;
         // let rule_raw = [false, false, false, false, false, false, false, false];
         const rule_raw = Array(512).fill(0);
@@ -193,8 +196,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
 
 
         this.grid = new Grid(this.rows, this.columns);
-        this.gridFiller = new GliderFiller(this.grid);
-
+        this.gridFiller.setGrid(this.grid);
 
         this.gridFiller.fill();
 
@@ -203,7 +205,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
 
       start() {
 
-        if (this.grid == null || this.gridFiller == null) {
+        if (this.grid == null) {
             this.reset();
         }
 

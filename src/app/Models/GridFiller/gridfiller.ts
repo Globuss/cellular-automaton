@@ -2,7 +2,13 @@ import { Grid } from '../Grid/grid';
 
 export abstract class GridFiller {
 
-    constructor(protected grid: Grid) {}
+    grid: Grid;
+
+    constructor() {}
+
+    setGrid(grid: Grid) {
+        this.grid = grid;
+    }
 
     public abstract fill();
 
