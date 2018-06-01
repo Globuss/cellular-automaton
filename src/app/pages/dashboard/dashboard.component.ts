@@ -136,7 +136,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.rule = new Rule(rule_raw);
         this.height = 400;
         this.width = 400;
-        this.cellSize = 15;
+        this.cellSize = 10;
         this.iteration_number = 0;
         this.chronometer = new Chronometer();
     }
