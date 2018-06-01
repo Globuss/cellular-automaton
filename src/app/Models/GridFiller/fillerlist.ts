@@ -5,6 +5,7 @@ import { CrossGridFiller } from "./FullGridFiller/crossgridfiller";
 import { GliderFiller } from "./GameOfLife/glider";
 import { LoafFiller } from "./GameOfLife/loaf";
 import { GridLinesFiller } from "./FullGridFiller/gridlinesfiller";
+import { GunFiller } from "./GameOfLife/gun";
 
 
 export function getFiller(fillerName: string) : GridFiller {
@@ -19,6 +20,7 @@ export function getFiller(fillerName: string) : GridFiller {
     // All Game of Life fillers
     list["glider"] = new GliderFiller();
     list["loaf"] = new LoafFiller();
-    
+    list["gun"] = new GunFiller();
+
     return list[fillerName];
 }
