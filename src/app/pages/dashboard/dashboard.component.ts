@@ -138,6 +138,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.width = 400;
         this.cellSize = 10;
         this.iteration_number = 0;
+        this.alive = 0;
+        
         this.chronometer = new Chronometer();
     }
 
@@ -193,7 +195,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     reset() {
 
         this.grid = null;
-        this.iteration_number = 0;
+        this.iteration_number = 0;        
         this.chronometer.reset();
         this.stop = false;
 
