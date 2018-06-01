@@ -6,9 +6,7 @@ import { Rule } from '../../Models/Rule/rule';
 import { Chronometer } from '../../Models/Chronometer/chronometer';
 
 import { GridFiller } from '../../Models/GridFiller/gridfiller';
-import { CenterGridFiller } from '../../Models/GridFiller/centergridfiller';
-import { RandomGridFiller } from '../../Models/GridFiller/randomgridfiller';
-import { GridLines } from '../../Models/GridFiller/gridlines';
+import { GliderFiller } from '../../Models/GridFiller/GameOfLife/glider';
 
 import { CallService } from '../../Services/call.service';
 
@@ -195,16 +193,10 @@ export class DashboardComponent implements AfterViewInit, OnInit {
 
 
         this.grid = new Grid(this.rows, this.columns);
-        this.gridFiller = new RandomGridFiller(this.grid);
+        this.gridFiller = new GliderFiller(this.grid);
 
 
-        // this.gridFiller.fill();
-
-        this.grid[1][1] = 1;
-        this.grid[2][2] = 1;
-        this.grid[2][3] = 1;
-        this.grid[1][3] = 1;
-        this.grid[3][2] = 1;
+        this.gridFiller.fill();
 
         this.drawGridOnCanvas();
     }
