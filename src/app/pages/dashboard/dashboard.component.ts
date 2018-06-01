@@ -200,7 +200,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     break;
                 case 'filler_cross':
                     this.applyNewFiller(new CrossGridFiller());
-                break;    
+                break;
             }
         });
     }
@@ -220,8 +220,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.width = this.myCanvas.nativeElement.clientWidth;
         this.height = this.myCanvas.nativeElement.clientHeight;
 
-        this.columns = Math.round(this.myCanvas.nativeElement.clientHeight / ( this.cellSize));
-        this.rows = Math.round(this.myCanvas.nativeElement.clientWidth / ( this.cellSize));
+        this.columns = Math.round(this.myCanvas.nativeElement.clientWidth / ( this.cellSize));
+        this.rows = Math.round(this.myCanvas.nativeElement.clientHeight / ( this.cellSize));
 
         this.myCanvas.nativeElement.width = this.width;
         this.myCanvas.nativeElement.height = this.height;
@@ -262,7 +262,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     clearGridFromCanvas() {
-        this.ctx.clearRect(0, 0, this.grid.getRows * this.cellSize, this.grid.getColumn * this.cellSize);
+        this.ctx.clearRect(0, 0, this.grid.getColumn * this.cellSize, this.grid.getRows * this.cellSize);
     }
 
     drawGridOnCanvas() {

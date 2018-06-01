@@ -5,19 +5,19 @@ export class Chronometer {
     private _totalSecondes: number = 0;
     private _timer;
 
-    get minutes(): number { 
+    get minutes(): number {
         return this._minutes;
     }
 
-    get secondes(): number { 
+    get secondes(): number {
         return this._secondes;
     }
 
     start() {
-        let start = new Date().getTime();
+        const start = new Date().getTime();
 
         this._timer = setInterval(() => {
-            this._totalSecondes = (new Date().getTime() - start)/1000;
+            this._totalSecondes = (new Date().getTime() - start) / 1000;
             this._minutes = Math.floor(++this._totalSecondes / 60);
             this._secondes = Math.round(this._totalSecondes - this._minutes * 60);
         }, 1000);
@@ -32,4 +32,4 @@ export class Chronometer {
       this._totalSecondes = this._minutes = this._secondes = 0;
     }
 
-  }
+}
