@@ -50,7 +50,7 @@ export class Grid extends Array  {
         situation += (this[row + 1][column] > 0 ? 1 : 0) * 128; // bottom
         situation += (this[row + 1][column + 1] > 0 ? 1 : 0) * 256; // bottom right
 
-        return rule[situation];
+        return rule.rule[situation];
     }
 
 

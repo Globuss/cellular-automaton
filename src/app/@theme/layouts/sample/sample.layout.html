@@ -15,9 +15,10 @@
             <div class="ng-content form-group;" style="margin-bottom: 20px; margin-top: 50px">
                 <select class="ng-content form-control"  (change)="gameChanged($event.target.value)">
                         <option value="" selected disabled hidden>Choose a rule</option>
-                        <option value="game_of_life"> Game of life</option>
+                        <option *ngFor="let rule of rules" value="{{rule.id}}">{{rule.name}}</option>
+                        <!--<option value="game_of_life"> Game of life</option>
                         <option value="254">Rule 254</option>
-                        <option value="tree">Tree</option>
+                        <option value="tree">Tree</option>-->
                 </select>
             </div>
 
@@ -28,7 +29,7 @@
             
             <div class="ng-content form-group;" style="margin-bottom: 20px;">
                 <select class="ng-content form-control" (change)="fillerChanged($event.target.value)">
-                        <option value="" selected disabled hidden>Choose a model</option>
+                    <option value="" selected disabled hidden>Choose a model</option>
                     <option value="random">Random</option>
                     <option value="loaf">Loaf</option>
                     <option value="glider">Glider</option>
@@ -44,25 +45,25 @@
             </div>
 
 
-            <div class="btn btn-warning" (click)="start()" style="width:100%;margin-bottom: 20px;">
+            <div class="btn btn-hero-warning" (click)="start()" style="width:100%;margin-bottom: 20px;">
                 <i class="menu-icon nb-play"></i>
                 <span>Start</span>
             </div>
 
             <div style="display: flex;">
                 <div style="width: 33%;padding-right: 6px;">
-                    <div class="btn btn-warning" (click)="pause()" style="width:100%;">
+                    <div class="btn btn-hero-warning" (click)="pause()" style="width:100%;">
                         <i class="menu-icon nb-pause"></i>
                     </div>
                 </div>
 
                 <div style="width: 33%; padding-left: 3px; padding-right: 3px;">
-                    <div class="btn btn-warning" (click)="stop()" style="width:100%;">
+                    <div class="btn btn-hero-warning" (click)="stop()" style="width:100%;">
                         <i class="menu-icon nb-square"></i>
                     </div>
                 </div>
                 <div style="width: 33%;padding-left: 6px;">
-                    <div href class="btn btn-warning" (click)="resetCanvas()" style="width:100%;">
+                    <div href class="btn btn-hero-warning" (click)="resetCanvas()" style="width:100%;">
                     <i class="icon ion-refresh"></i>
                     </div>
                 </div>

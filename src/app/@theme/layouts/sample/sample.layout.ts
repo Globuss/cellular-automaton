@@ -12,6 +12,8 @@ import {
   NbThemeService,
 } from '@nebular/theme';
 
+import { Rule } from '../../../Models/Rule/rule';
+
 import { StateService } from '../../../@core/data/state.service';
 
 // TODO: move layouts into the framework
@@ -23,13 +25,14 @@ import { StateService } from '../../../@core/data/state.service';
 
 export class SampleLayoutComponent implements OnDestroy {
 
-  
+
   layout: any = {};
   sidebar: any = {};
 
   protected layoutState$: Subscription;
   protected sidebarState$: Subscription;
   protected menuClick$: Subscription;
+  protected rules: Array<Rule>;
 
   constructor(protected stateService: StateService,
               protected menuService: NbMenuService,
@@ -57,34 +60,35 @@ export class SampleLayoutComponent implements OnDestroy {
           this.sidebarService.collapse('menu-sidebar');
         }
       });
+      this.rules = Rule.getAll();
   }
 
   resetCanvas() {
-    this.Util.sendClickCall("reset_canvas");
+    this.Util.sendClickCall('reset_canvas');
   }
 
   openModalCreateRule() {
-    this.Util.sendClickCall("open_modal_create_rule");
+    this.Util.sendClickCall('open_modal_create_rule');
   }
 
-  gameChanged(newGame: string) {
-    this.Util.sendClickCall("game_" + newGame);
+  gameChanged(newGame: number) {
+    this.Util.sendClickCall('game', {id: newGame});
   }
 
   fillerChanged(newRule: string) {
-    this.Util.sendClickCall("filler_" + newRule);
+    this.Util.sendClickCall('filler_' + newRule);
   }
 
   start() {
-    this.Util.sendClickCall("start");
+    this.Util.sendClickCall('start');
   }
 
   stop() {
-    this.Util.sendClickCall("stop");
+    this.Util.sendClickCall('stop');
   }
 
   pause() {
-    this.Util.sendClickCall("pause");
+    this.Util.sendClickCall('pause');
   }
 
   ngOnDestroy() {
