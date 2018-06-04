@@ -32,7 +32,7 @@ export class SampleLayoutComponent implements OnDestroy {
   protected layoutState$: Subscription;
   protected sidebarState$: Subscription;
   protected menuClick$: Subscription;
-  protected rules: Array<Rule>;
+  public rules: Array<Rule>;
 
   constructor(protected stateService: StateService,
               protected menuService: NbMenuService,
