@@ -1,6 +1,7 @@
 import { HeaderComponent } from './../../@theme/components/header/header.component';
 import { Subscription } from 'rxjs/Subscription';
 import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { Grid } from '../../Models/Grid/grid';
 import { Rule } from '../../Models/Rule/rule';
 import { Chronometer } from '../../Models/Chronometer/chronometer';
@@ -19,6 +20,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CreateRuleComponent } from '../../Components/Modals/CreateRule/createRule.component';
 
+import 'style-loader!angular2-toaster/toaster.css';
+
 @Component({
   selector: 'ngx-dashboard',
   styleUrls: ['./dashboard.component.scss'],
@@ -30,7 +33,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     ctx: CanvasRenderingContext2D;
     grid: Grid;
     delayBetweenFrames: number;
-    rule: Rule;
+    rule: Rule = null;
     height: number;
     width: number;
     rows: number;
@@ -42,8 +45,22 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     chronometer: Chronometer;
     stop: boolean;
     alive: number;
+    config: ToasterConfig;
 
-    constructor(private modalService: NgbModal, protected Util: CallService) {
+    position = 'toast-top-right';
+    animationType = 'fade';
+    title = 'HI there!';
+    content = `I'm cool toaster!`;
+    timeout = 5000;
+    toastsLimit = 5;
+    type = 'default';
+  
+    isNewestOnTop = true;
+    isHideOnClick = true;
+    isDuplicatesPrevented = false;
+    isCloseButton = true;
+
+    constructor(private modalService: NgbModal, protected Util: CallService, private toasterService: ToasterService) {
 
         this.gridFiller = new GliderFiller();
 
@@ -156,7 +173,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.drawGridOnCanvas();
     }
 
-      start() {
+    start() {
 
         if (this.grid == null) {
             this.reset();
@@ -170,15 +187,18 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     launch() {
-
-        this.drawGridOnCanvas();
-        this.grid = this.updateGridWithGameRules();
-        setTimeout(() => {
-            if ( !this.stop ) {
-                this.iteration_number++;
-                this.launch();
-            }
-        }, this.delayBetweenFrames);
+        if(this.rule !== null){
+            this.drawGridOnCanvas();
+            this.grid = this.updateGridWithGameRules();
+            setTimeout(() => {
+                if ( !this.stop ) {
+                    this.iteration_number++;
+                    this.launch();
+                }
+            }, this.delayBetweenFrames);
+        }else{
+            this.showToast("error","Error","You need to precise a rule");
+        }
 
     }
 
@@ -233,6 +253,31 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             }
         }
         return copyGrid;
+    }
+
+    private showToast(type: string, title: string, body: string) {
+        this.config = new ToasterConfig({
+          positionClass: this.position,
+          timeout: this.timeout,
+          newestOnTop: this.isNewestOnTop,
+          tapToDismiss: this.isHideOnClick,
+          preventDuplicates: this.isDuplicatesPrevented,
+          animation: this.animationType,
+          limit: this.toastsLimit,
+        });
+        const toast: Toast = {
+          type: type,
+          title: title,
+          body: body,
+          timeout: this.timeout,
+          showCloseButton: this.isCloseButton,
+          bodyOutputType: BodyOutputType.TrustedHtml,
+        };
+        this.toasterService.popAsync(toast);
+      }
+    
+      clearToasts() {
+        this.toasterService.clear();
     }
 
 }
