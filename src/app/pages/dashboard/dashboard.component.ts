@@ -96,7 +96,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     this.grid = null;
                     break;
                 case 'game':
-                    const ruleTemp = Rule.getById(message.id);
+                    const ruleTemp = Rule.getById(parseInt(message.data.id));
                     if (ruleTemp !== null) {
                         this.rule = ruleTemp;
                         this.reset();
