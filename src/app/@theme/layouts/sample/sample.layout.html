@@ -11,9 +11,9 @@
         </nb-sidebar-header>
 
         <div style="margin: auto;">
-            
+
             <div class="ng-content form-group;" style="margin-bottom: 20px; margin-top: 50px">
-                <select class="ng-content form-control"  (change)="gameChanged($event.target.value)">
+                <select class="ng-content form-control" (change)="gameChanged($event.target.value)">
                         <option value="" selected disabled hidden>Choose a rule</option>
                         <option *ngFor="let rule of rules" value="{{rule.id}}">{{rule.name}}</option>
                         <!--<option value="game_of_life"> Game of life</option>
@@ -26,17 +26,18 @@
                 <i class="ion ion-compose"></i>
                 <span>Create new rule</span>
             </div>
-            
+
             <div class="ng-content form-group;" style="margin-bottom: 20px;">
                 <select class="ng-content form-control" (change)="fillerChanged($event.target.value)">
                     <option value="" selected disabled hidden>Choose a model</option>
-                    <option value="random">Random</option>
+                    <option *ngFor="let gridFiller of gridFillers" value="{{gridFiller.id}}">{{gridFiller.name}}</option>
+                    <!--<option value="random">Random</option>
                     <option value="loaf">Loaf</option>
                     <option value="glider">Glider</option>
                     <option value="center">Center line</option>
                     <option value="gridlines">Grid lines</option>
                     <option value="cross">Cross</option>
-                    <option value="gun">Gosper glider gun</option>
+                    <option value="gun">Gosper glider gun</option>-->
                 </select>
             </div>
 
@@ -65,7 +66,7 @@
                 </div>
                 <div style="width: 33%;padding-left: 6px;">
                     <div href class="btn btn-hero-warning" (click)="resetCanvas()" style="width:100%;">
-                    <i class="icon ion-refresh"></i>
+                        <i class="icon ion-refresh"></i>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,12 @@ import {GridFiller} from '../gridfiller';
 
 export class GunFiller extends GridFiller {
 
+    constructor () {
+        super();
+        this._id = GridFiller.incrementId();
+        this._name = 'Gun';
+    }
+
     public fill() {
         this.grid[5][1] = 1;
         this.grid[6][1] = 1;

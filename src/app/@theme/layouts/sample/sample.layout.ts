@@ -15,6 +15,7 @@ import {
 import { Rule } from '../../../Models/Rule/rule';
 
 import { StateService } from '../../../@core/data/state.service';
+import { GridFiller } from '../../../Models/GridFiller/gridfiller';
 
 // TODO: move layouts into the framework
 @Component({
@@ -33,6 +34,7 @@ export class SampleLayoutComponent implements OnDestroy {
   protected sidebarState$: Subscription;
   protected menuClick$: Subscription;
   public rules: Array<Rule>;
+  public gridFillers: Array<GridFiller>;
 
   constructor(protected stateService: StateService,
               protected menuService: NbMenuService,
@@ -61,6 +63,8 @@ export class SampleLayoutComponent implements OnDestroy {
         }
       });
       this.rules = Rule.getAll();
+      this.gridFillers = GridFiller.getAll();
+      console.log(this.gridFillers);
   }
 
   resetCanvas() {
@@ -75,8 +79,8 @@ export class SampleLayoutComponent implements OnDestroy {
     this.Util.sendClickCall('game', {id: newGame});
   }
 
-  fillerChanged(newRule: string) {
-    this.Util.sendClickCall('filler_' + newRule);
+  fillerChanged(newRule: number) {
+    this.Util.sendClickCall('filler', {id: newRule});
   }
 
   start() {

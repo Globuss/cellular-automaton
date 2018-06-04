@@ -63,6 +63,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     constructor(private modalService: NgbModal, protected Util: CallService, private toasterService: ToasterService) {
 
         this.gridFiller = new GliderFiller();
+        new CenterGridFiller();
+        new RandomGridFiller();
+        new GridLinesFiller();
+        new CrossGridFiller();
+    
+        // All Game of Life fillers
+        new GliderFiller();
+        new LoafFiller();
 
         this.delayBetweenFrames = 100;
         // let rule_raw = [false, false, false, false, false, false, false, false];
@@ -119,26 +127,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                         this.reset();
                     }
                     break;
-
-                // We treat all fillers
-                case 'filler_loaf':
-                    this.applyNewFiller(new LoafFiller());
+                case 'filler':
+                    const fillerTemp = GridFiller.getById(parseInt(message.data.id));
+                    if (fillerTemp !== null) {
+                        this.gridFiller = fillerTemp;
+                        this.reset();
+                    }
                     break;
-                case 'filler_glider':
-                    this.applyNewFiller(new GliderFiller());
-                    break;
-                case 'filler_random':
-                    this.applyNewFiller(new RandomGridFiller());
-                    break;
-                case 'filler_center':
-                    this.applyNewFiller(new CenterGridFiller());
-                    break;
-                case 'filler_gridlines':
-                    this.applyNewFiller(new GridLinesFiller());
-                    break;
-                case 'filler_cross':
-                    this.applyNewFiller(new CrossGridFiller());
-                break;
             }
         });
     }
