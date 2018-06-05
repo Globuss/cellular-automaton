@@ -19,6 +19,8 @@ import { CallService } from '../../Services/call.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CreateRuleComponent } from '../../Components/Modals/CreateRule/createRule.component';
+import { CreateFillerComponent } from '../../Components/Modals/CreateFiller/createFiller.component';
+import { SettingsComponent } from '../../Components/Modals/Settings/settings.component';
 
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -54,6 +56,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     timeout = 5000;
     toastsLimit = 5;
     type = 'default';
+    color: string;
   
     isNewestOnTop = true;
     isHideOnClick = true;
@@ -80,6 +83,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.height = 400;
         this.width = 400;
         this.cellSize = 15;
+        this.color = "#00ff00";
         this.iteration_number = 0;
         this.chronometer = new Chronometer();
     }
@@ -109,8 +113,25 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     this.start();
                     break;
                 case 'open_modal_create_rule':
-                    const activeModal = this.modalService.open(CreateRuleComponent,
+                    const activeModalCreateRule = this.modalService.open(CreateRuleComponent,
                         { size: 'lg', container: 'nb-layout' });
+                    break;
+                case 'open_modal_create_filler':
+                    const activeModalCreateFiller = this.modalService.open(CreateFillerComponent,
+                        { size: 'lg', container: 'nb-layout' });
+                    break;
+                case 'open_modal_settings':
+                    const activeModalSettings = this.modalService.open(SettingsComponent,
+                        { size: 'lg', container: 'nb-layout' });
+                    activeModalSettings.componentInstance.color = this.color;
+                    activeModalSettings.componentInstance.cellSize = this.cellSize;                    
+                    activeModalSettings.result.then((result) => {
+                        this.color = result.color;
+                        this.cellSize = result.cellSize;
+                            console.log(result);
+                        }).catch((error) => {
+
+                        });
                     break;
                 case 'pause':
                     this.stop = true;
@@ -211,7 +232,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                                     Math.round(Math.random() * 255) + ',' +
                                     Math.round(Math.random() * 255) + ',' +
                                     Math.round(Math.random() * 255) + ')' ;*/
-                    this.ctx.fillStyle = '#00ff00';
+                    //this.ctx.fillStyle = '#00ff00';
+                    this.ctx.fillStyle = this.color;
                     this.ctx.fillRect(column * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
                     liveCount++;
                 }else if ( this.grid[row][column] === 2 ) {
