@@ -16,34 +16,24 @@
                 <select class="ng-content form-control" (change)="gameChanged($event.target.value)">
                         <option value="" selected disabled hidden>Choose a rule</option>
                         <option *ngFor="let rule of rules" value="{{rule.id}}">{{rule.name}}</option>
-                        <!--<option value="game_of_life"> Game of life</option>
-                        <option value="254">Rule 254</option>
-                        <option value="tree">Tree</option>-->
                 </select>
             </div>
 
             <div href (click)="openModalCreateRule()" class="btn btn-hero-primary" style="width:100%;margin-bottom: 30px;">
                 <i class="ion ion-compose"></i>
-                <span>Create new rule</span>
+                <span>&nbsp;Create new rule</span>
             </div>
 
             <div class="ng-content form-group;" style="margin-bottom: 20px;">
                 <select class="ng-content form-control" (change)="fillerChanged($event.target.value)">
                     <option value="" selected disabled hidden>Choose a model</option>
                     <option *ngFor="let gridFiller of gridFillers" value="{{gridFiller.id}}">{{gridFiller.name}}</option>
-                    <!--<option value="random">Random</option>
-                    <option value="loaf">Loaf</option>
-                    <option value="glider">Glider</option>
-                    <option value="center">Center line</option>
-                    <option value="gridlines">Grid lines</option>
-                    <option value="cross">Cross</option>
-                    <option value="gun">Gosper glider gun</option>-->
                 </select>
             </div>
 
-            <div href (click)="openModalCreateRule()" class="btn btn-hero-primary " style="width:100%;margin-bottom: 100px;">
+            <div href (click)="openModalCreateFiller()" class="btn btn-hero-primary " style="width:100%;margin-bottom: 100px;">
                 <i class="ion ion-compose"></i>
-                <span>Create new model</span>
+                <span>&nbsp;Create new model</span>
             </div>
 
 
@@ -71,6 +61,12 @@
                 </div>
             </div>
         </div>
+        <nb-sidebar-footer>
+            <div href (click)="openModalSettings()" class="clickable" style="width:100%;margin-bottom: 100px;">
+                <i class="ion ion-gear-a"></i>
+                <span>&nbsp;Settings</span>
+            </div>
+        </nb-sidebar-footer>
     </nb-sidebar>
 
     <nb-layout-column class="main-content">

@@ -64,7 +64,6 @@ export class SampleLayoutComponent implements OnDestroy {
       });
       this.rules = Rule.getAll();
       this.gridFillers = GridFiller.getAll();
-      console.log(this.gridFillers);
   }
 
   resetCanvas() {
@@ -73,6 +72,14 @@ export class SampleLayoutComponent implements OnDestroy {
 
   openModalCreateRule() {
     this.Util.sendClickCall('open_modal_create_rule');
+  }
+
+  openModalCreateFiller() {
+    this.Util.sendClickCall('open_modal_create_filler');
+  }
+
+  openModalSettings() {
+    this.Util.sendClickCall('open_modal_settings');
   }
 
   gameChanged(newGame: number) {
