@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <span>Settings</span>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p> Yoo !!! </p>
+    <p>{{color}}</p>
+    <input [(ngModel)]="color" type="color">
+    <p>{{cellSize}}</p>
+    <input [(ngModel)]="cellSize" type="number" min="1" max="100">
+</div>
+<div class="modal-footer">
+    <button class="btn btn-md btn-primary" (click)="saveSettings()">Save</button>
+</div>
