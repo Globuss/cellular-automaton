@@ -57,7 +57,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     toastsLimit = 5;
     type = 'default';
     color: string;
-  
+
     isNewestOnTop = true;
     isHideOnClick = true;
     isDuplicatesPrevented = false;
@@ -70,7 +70,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         new RandomGridFiller();
         new GridLinesFiller();
         new CrossGridFiller();
-    
+
         // All Game of Life fillers
         new GliderFiller();
         new LoafFiller();
@@ -83,7 +83,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.height = 400;
         this.width = 400;
         this.cellSize = 15;
-        this.color = "#00ff00";
+        this.color = '#00ff00';
         this.iteration_number = 0;
         this.chronometer = new Chronometer();
     }
@@ -124,14 +124,11 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     const activeModalSettings = this.modalService.open(SettingsComponent,
                         { size: 'lg', container: 'nb-layout' });
                     activeModalSettings.componentInstance.color = this.color;
-                    activeModalSettings.componentInstance.cellSize = this.cellSize;                    
+                    activeModalSettings.componentInstance.cellSize = this.cellSize;
                     activeModalSettings.result.then((result) => {
                         this.color = result.color;
                         this.cellSize = result.cellSize;
-                            console.log(result);
-                        }).catch((error) => {
-
-                        });
+                    }).catch((error) => {});
                     break;
                 case 'pause':
                     this.stop = true;
@@ -142,14 +139,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     this.grid = null;
                     break;
                 case 'game':
-                    const ruleTemp = Rule.getById(parseInt(message.data.id));
+                    const ruleTemp = Rule.getById(parseInt(message.data.id, 10));
                     if (ruleTemp !== null) {
                         this.rule = ruleTemp;
                         this.reset();
                     }
                     break;
                 case 'filler':
-                    const fillerTemp = GridFiller.getById(parseInt(message.data.id));
+                    const fillerTemp = GridFiller.getById(parseInt(message.data.id, 10));
                     if (fillerTemp !== null) {
                         this.gridFiller = fillerTemp;
                         this.reset();
@@ -203,7 +200,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     launch() {
-        if(this.rule !== null){
+        if (this.rule !== null) {
             this.drawGridOnCanvas();
             this.grid = this.updateGridWithGameRules();
             setTimeout(() => {
@@ -212,8 +209,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                     this.launch();
                 }
             }, this.delayBetweenFrames);
-        }else{
-            this.showToast("error","Error","You need to precise a rule");
+        }else {
+            this.showToast('error', 'Error', 'You need to precise a rule');
         }
 
     }
@@ -228,11 +225,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         for (let row = 1; row < this.grid.getRows - 1; row++) { // iterate through rows
             for (let column = 1; column <  this.grid.getColumn - 1; column++) { // iterate through columns
                 if (this.grid[row][column] === 1) {
-                    /*this.ctx.fillStyle = 'rgb(' +
-                                    Math.round(Math.random() * 255) + ',' +
-                                    Math.round(Math.random() * 255) + ',' +
-                                    Math.round(Math.random() * 255) + ')' ;*/
-                    //this.ctx.fillStyle = '#00ff00';
                     this.ctx.fillStyle = this.color;
                     this.ctx.fillRect(column * this.cellSize, row * this.cellSize, this.cellSize, this.cellSize);
                     liveCount++;
@@ -292,7 +284,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         };
         this.toasterService.popAsync(toast);
       }
-    
+
       clearToasts() {
         this.toasterService.clear();
     }
