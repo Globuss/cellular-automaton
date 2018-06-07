@@ -1,0 +1,26 @@
+.ruleMatrix {
+    width: 150px;
+    height: 150px;
+    margin: 15px;
+}
+
+.cell {
+    width: 45px;
+    height: 45px;
+    background-color: white;
+    border: 1px solid #efefef;
+    float: left;
+}
+
+.active {
+    background-color: black;
+}
+
+.intermediate {
+    background-color: green;
+}
+
+.btn-tn {
+    width: 100%;
+    margin-bottom: 1px;
+}

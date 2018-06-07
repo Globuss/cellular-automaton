@@ -23,6 +23,7 @@ import { CreateFillerComponent } from '../../Components/Modals/CreateFiller/crea
 import { SettingsComponent } from '../../Components/Modals/Settings/settings.component';
 
 import 'style-loader!angular2-toaster/toaster.css';
+import { GunFiller } from '../../Models/GridFiller/GameOfLife/gun';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -72,8 +73,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         new CrossGridFiller();
 
         // All Game of Life fillers
-        new GliderFiller();
         new LoafFiller();
+        new GunFiller();
 
         this.delayBetweenFrames = 100;
         // let rule_raw = [false, false, false, false, false, false, false, false];
@@ -115,6 +116,12 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                 case 'open_modal_create_rule':
                     const activeModalCreateRule = this.modalService.open(CreateRuleComponent,
                         { size: 'lg', container: 'nb-layout' });
+
+                        activeModalCreateRule.result.then((result) => {
+                            if(result.return){
+                                this.showToast('success','Success',result.name + ' added')
+                            }
+                        }).catch((error) => {});
                     break;
                 case 'open_modal_create_filler':
                     const activeModalCreateFiller = this.modalService.open(CreateFillerComponent,
@@ -264,7 +271,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         return copyGrid;
     }
 
-    private showToast(type: string, title: string, body: string) {
+    public showToast(type: string, title: string, body: string) {
         this.config = new ToasterConfig({
           positionClass: this.position,
           timeout: this.timeout,
@@ -283,9 +290,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
           bodyOutputType: BodyOutputType.TrustedHtml,
         };
         this.toasterService.popAsync(toast);
-      }
+    }
 
-      clearToasts() {
+    clearToasts() {
         this.toasterService.clear();
     }
 

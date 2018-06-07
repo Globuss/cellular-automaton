@@ -43,7 +43,9 @@ export class Grid extends Array  {
         situation += (this[row - 1][column + 1] > 0 ? 1 : 0) * 4; // top right
 
         situation += (this[row][column - 1] > 0 ? 1 : 0) * 8; // middle left
-        // situation += (this[row][column] > 0 ? 1 : 0) * 16; // middle
+        if(rule.countMid){
+            situation += (this[row][column] > 0 ? 1 : 0) * 16; // middle
+        }
         situation += (this[row][column + 1] > 0 ? 1 : 0) * 32; // middle right
 
         situation += (this[row + 1][column - 1] > 0 ? 1 : 0) * 64; // bottom left

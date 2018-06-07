@@ -5,7 +5,66 @@
     </button>
 </div>
 <div class="modal-body">
-    <p> BAZOUR !!! </p>
+    <div>
+        <div class="row">
+            <div style="width:100%;">
+                <h5>Rule configuration</h5>
+                <hr>
+            </div>
+            <div style="padding-left: 5px; padding-right: 5px;width:100%;">
+                <div class="form-group" style="width:100%;">
+                    <input id="inputName" class="form-control" placeholder="Rule name.." [(ngModel)]="name" type="text" />
+                </div>
+                <label>Count the mid element ?</label>
+                <div style="width:150px;">
+                    <ngx-switcher [firstValue]="true" [secondValue]="false" [firstValueLabel]="'Yes'" [secondValueLabel]="'No'" [value]="countMid" (valueChange)="toggleCountMid($event)" [vertical]="false">
+                    </ngx-switcher>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div style="width:100%;">
+                <h5>Combinaisons</h5>
+                <hr>
+            </div>
+            <div style="padding-left: 5px; padding-right: 5px;width: 100%;">
+                <div class="row">
+                    <div class="col-xs-4 ocl-md-4 col-lg-3">
+                        <ul style="max-height:40vh; overflow-y: scroll;">
+                            <li class="clickable btn btn-primary btn-tn" *ngFor="let customCombinaison of customCombinaisons" (click)="setNumberRule(customCombinaison)">{{customCombinaison}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-8 col-md-8 col-lg-9">
+                        <!--<input (change)="forceRefreshMatrix()" [(ngModel)]="numberRule" type="number">-->
+                        <span>Draw your pattern</span>
+                        <div style="width: 100%;display: flex;">
+                            <div class="ruleMatrix">
+                                <div (click)="changeState(0,0)" [class.active]="getColor(0,0)" class="cell"></div>
+                                <div (click)="changeState(0,1)" [class.active]="getColor(0,1)" class="cell"></div>
+                                <div (click)="changeState(0,2)" [class.active]="getColor(0,2)" class="cell"></div>
+                                <div (click)="changeState(1,0)" [class.active]="getColor(1,0)" class="cell"></div>
+                                <div (click)="changeState(1,1)" [class.active]="getColor(1,1)" class="cell"></div>
+                                <div (click)="changeState(1,2)" [class.active]="getColor(1,2)" class="cell"></div>
+                                <div (click)="changeState(2,0)" [class.active]="getColor(2,0)" class="cell"></div>
+                                <div (click)="changeState(2,1)" [class.active]="getColor(2,1)" class="cell"></div>
+                                <div (click)="changeState(2,2)" [class.active]="getColor(2,2)" class="cell"></div>
+                            </div>
+                            <div style="display: flex;margin:auto;width: calc(100% - 180px)">
+                                <i class="fa fa-long-arrow-right" style="font-size : 80px;margin:auto;"></i>
+                                <div style="float:none;margin:auto;text-align:center;width:100px;">
+                                    <div style="float:none;margin:auto;" (click)="changeStateResRule()" [class.active]="resRule===1" [class.intermediate]="resRule === 2" class="cell"></div>
+                                    <span>{{ lib[resRule] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 100%;display: flex;">
+                            <button style="margin: auto;" class="btn btn-md btn-primary" (click)="addCombinaisaon()">{{((customCombinaisons.indexOf(numberRule) < 0)?"Add":"Edit")}} combinaison {{matrixToNumber()}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-md btn-primary" (click)="createRule()">Create</button>
