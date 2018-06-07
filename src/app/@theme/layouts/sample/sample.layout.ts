@@ -78,10 +78,6 @@ export class SampleLayoutComponent implements OnDestroy {
     this.Util.sendClickCall('open_modal_create_filler');
   }
 
-  openModalSettings() {
-    this.Util.sendClickCall('open_modal_settings');
-  }
-
   gameChanged(newGame: number) {
     this.Util.sendClickCall('game', {id: newGame});
   }
