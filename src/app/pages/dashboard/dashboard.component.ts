@@ -58,6 +58,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     toastsLimit = 5;
     type = 'default';
     color: string;
+    iteration_max: number;
 
     isNewestOnTop = true;
     isHideOnClick = true;
@@ -86,6 +87,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.cellSize = 15;
         this.color = '#00ff00';
         this.iteration_number = 0;
+        this.iteration_max = 0;
         this.chronometer = new Chronometer();
     }
 
@@ -132,9 +134,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                         { size: 'lg', container: 'nb-layout' });
                     activeModalSettings.componentInstance.color = this.color;
                     activeModalSettings.componentInstance.cellSize = this.cellSize;
+                    activeModalSettings.componentInstance.iteration_max = this.iteration_max;
+                    activeModalSettings.componentInstance.delayBetweenFrames = this.delayBetweenFrames;
                     activeModalSettings.result.then((result) => {
                         this.color = result.color;
                         this.cellSize = result.cellSize;
+                        this.iteration_max = result.iteration_max;
+                        this.delayBetweenFrames = result.delayBetweenFrames;
                     }).catch((error) => {});
                     break;
                 case 'pause':
@@ -211,7 +217,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.drawGridOnCanvas();
             this.grid = this.updateGridWithGameRules();
             setTimeout(() => {
-                if ( !this.stop ) {
+                if ( !this.stop && !(this.iteration_max > 0 && this.iteration_max -1 < this.iteration_number)) {
                     this.iteration_number++;
                     this.launch();
                 }
