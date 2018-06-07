@@ -5,12 +5,44 @@
     </div>
     <ngx-theme-switcher></ngx-theme-switcher>
 
-    <nb-actions
-  size="medium"
-  class="header-container"
-  [class.right]="position === 'normal'">
-  <nb-action icon="nb-gear" class="toggle-layout" (click)="openModalSettings()">
-        
-  </nb-action>
-</nb-actions>
+    <div class="row text-center" style="padding-left: 1000px;width: 150%">
+        <div class="col-md-3">
+            <div style="font-size: 150%; padding-left: 3px; padding-right: 3px;">
+                <i class="icon ion-speedometer"></i>
+            </div>
+            <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;"> 
+                <span> 0.01/s </span>    
+            </div>
+        </div>
+    
+        <div class="col-md-3">
+            <div style="font-size: 150%; padding-left: 3px; padding-right: 3px;">
+                <i class="fa fa-spinner"></i>
+            </div>
+            <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;">
+                <span> 01:56 </span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div style="font-size: 150%; padding-left: 3px; padding-right: 3px;">
+                <i class="icon ion-arrow-return-right"></i>
+            </div>
+            <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;"> 
+                <span>116</span> 
+            </div>
+        </div>
+    
+        <div class="col-md-3">
+            <div style="font-size: 150%; padding-left: 3px; padding-right: 3px;">
+                <i class="fa fa-square"></i>
+            </div>
+            <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;">
+                <span>10</span>  
+            </div>
+        </div>
+    </div>
+    <nb-actions size="medium" class="header-container" [class.right]="position === 'normal'">
+        <nb-action icon="nb-gear" class="toggle-layout" (click)="openModalSettings()"> </nb-action>
+    </nb-actions>
 </div>
