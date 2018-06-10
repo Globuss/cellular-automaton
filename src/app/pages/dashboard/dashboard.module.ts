@@ -10,6 +10,9 @@ import { CreateRuleComponent } from './../../Components/Modals/CreateRule/create
 import { CreateFillerComponent } from './../../Components/Modals/CreateFiller/createFiller.component';
 import { SettingsComponent } from './../../Components/Modals/Settings/settings.component';
 
+import { CanvasDrawableComponent } from '../../canvas-drawable/canvas-drawable.component';
+
+
 @NgModule({
   imports: [
     ThemeModule,
@@ -21,11 +24,13 @@ import { SettingsComponent } from './../../Components/Modals/Settings/settings.c
     CreateRuleComponent,
     CreateFillerComponent,
     SettingsComponent,
+    CanvasDrawableComponent
   ],
   entryComponents: [
     CreateRuleComponent,
     CreateFillerComponent,
     SettingsComponent,
+    CanvasDrawableComponent
   ],
 })
 export class DashboardModule { }

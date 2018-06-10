@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Rule } from '../../../Models/Rule/rule';
+import { CanvasDrawableComponent } from '../../../canvas-drawable/canvas-drawable.component';
+
 
 @Component({
   selector: 'ngx-modal',
@@ -8,6 +9,12 @@ import { Rule } from '../../../Models/Rule/rule';
 })
 export class CreateFillerComponent {
 
+  @ViewChild('bod') public myDiv: ElementRef;
+
+  @Input() public rows;
+  @Input() public columns;
+
+  @ViewChild(CanvasDrawableComponent) myComponent: CanvasDrawableComponent;
   constructor(private activeModal: NgbActiveModal) { }
 
   closeModal() {
@@ -15,6 +22,7 @@ export class CreateFillerComponent {
   }
 
   createRule() {
+    this.myComponent.createModel();
     this.activeModal.close();
   }
 }
