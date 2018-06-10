@@ -28,16 +28,16 @@ export class CanvasDrawableComponent implements OnInit {
   @Input() public rows: number;
   @Input() public columns: number;
 
-  private drawable_name: string;
+  public drawable_name: string;
   private resize_ratio: number;
 
   private cx: CanvasRenderingContext2D;
 
   constructor() { 
-    this.drawable_name = "Mon premier modèle !"
+    this.drawable_name = ""
   }
 
-  ngOnInit() {
+  reset() {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl.getContext('2d');
 
@@ -51,6 +51,10 @@ export class CanvasDrawableComponent implements OnInit {
     this.cx.strokeStyle = '#000';
 
     this.captureEvents(canvasEl);
+  }
+
+  ngOnInit() {
+    this.reset();
   }
 
   computeDimensions() {
@@ -83,7 +87,7 @@ export class CanvasDrawableComponent implements OnInit {
       }
     }
     let total_pixels = this.resize_ratio * this.resize_ratio;
-    return res > (total_pixels / 2) ? 1 : 0;
+    return res > (total_pixels * 0.3) ? 1 : 0;
   }
 
   getColorCanvasForCoordinates(data_image, x, y) {

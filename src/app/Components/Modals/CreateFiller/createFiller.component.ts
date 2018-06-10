@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CanvasDrawableComponent } from '../../../canvas-drawable/canvas-drawable.component';
 
@@ -8,8 +8,6 @@ import { CanvasDrawableComponent } from '../../../canvas-drawable/canvas-drawabl
   templateUrl: 'createFiller.component.html',
 })
 export class CreateFillerComponent {
-
-  @ViewChild('bod') public myDiv: ElementRef;
 
   @Input() public rows;
   @Input() public columns;
@@ -21,8 +19,12 @@ export class CreateFillerComponent {
     this.activeModal.close();
   }
 
-  createRule() {
+  createFiller() {
     this.myComponent.createModel();
-    this.activeModal.close();
+    this.activeModal.close({return: true, name: this.myComponent.drawable_name});
+  }
+
+  resetFiller() {
+    this.myComponent.reset();
   }
 }

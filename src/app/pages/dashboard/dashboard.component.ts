@@ -130,6 +130,11 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                         { size: 'lg', container: 'nb-layout' });
                         activeModalCreateFiller.componentInstance.rows =   Math.round(this.myCanvas.nativeElement.clientHeight / ( this.cellSize));
                         activeModalCreateFiller.componentInstance.columns = Math.round(this.myCanvas.nativeElement.clientWidth / ( this.cellSize));
+                        activeModalCreateFiller.result.then((result) => {
+                            if(result.return){
+                                this.showToast('success','Success',result.name + ' added')
+                            }
+                        }).catch((error) => {});
                     break;
                 case 'open_modal_settings':
                     const activeModalSettings = this.modalService.open(SettingsComponent,

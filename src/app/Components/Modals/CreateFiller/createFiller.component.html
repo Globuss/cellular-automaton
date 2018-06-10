@@ -6,9 +6,10 @@
 </div>
 <div class="modal-body" id="bod">
 
-<canvas-drawable columns="{{ columns }}" rows="{{ rows }}" max_height="400" max_width="400"> </canvas-drawable>
+<canvas-drawable columns="{{ columns }}" rows="{{ rows }}" max_height="400" max_width="1200"> </canvas-drawable>
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-md btn-primary" (click)="createRule()">Create</button>
+    <button class="btn btn-md btn-hero-warning" (click)="resetFiller()">Reset</button>
+    <button class="btn btn-md btn-primary" (click)="createFiller()">Create</button>
 </div>
