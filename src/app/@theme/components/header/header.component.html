@@ -11,7 +11,7 @@
                 <i class="icon ion-speedometer"></i>
             </div>
             <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;"> 
-                <span> 0.01/s </span>    
+                <span> {{ delayBetweenFrames == 0 ? "∞" : 1000 / delayBetweenFrames + "/s" }} </span>    
             </div>
         </div>
     
@@ -20,7 +20,7 @@
                 <i class="fa fa-spinner"></i>
             </div>
             <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;">
-                <span> 01:56 </span>
+                <span> {{ ("00" + dataService.chronometer.minutes).slice(-2) }}:{{ ("00" + dataService.chronometer.secondes).slice(-2) }} </span>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
                 <i class="icon ion-arrow-return-right"></i>
             </div>
             <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;"> 
-                <span>116</span> 
+                <span>{{ iterations }}</span> 
             </div>
         </div>
     
@@ -38,7 +38,7 @@
                 <i class="fa fa-square"></i>
             </div>
             <div style="font-size: 80%; padding-left: 3px; padding-right: 3px;">
-                <span>10</span>  
+                <span>{{ alive }}</span>  
             </div>
         </div>
     </div>

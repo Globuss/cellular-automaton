@@ -4,7 +4,6 @@ import { Component, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angula
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { Grid } from '../../Models/Grid/grid';
 import { Rule } from '../../Models/Rule/rule';
-import { Chronometer } from '../../Models/Chronometer/chronometer';
 
 import { GridFiller } from '../../Models/GridFiller/gridfiller';
 import { GliderFiller } from '../../Models/GridFiller/GameOfLife/glider';
@@ -24,6 +23,7 @@ import { SettingsComponent } from '../../Components/Modals/Settings/settings.com
 
 import 'style-loader!angular2-toaster/toaster.css';
 import { GunFiller } from '../../Models/GridFiller/GameOfLife/gun';
+import { DataService } from '../../Services/data.service';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -44,8 +44,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     subscription: Subscription;
     gridFiller: GridFiller;
     cellSize: number;
-    iteration_number: number;
-    chronometer: Chronometer;
+    iterations: number;
     stop: boolean;
     alive: number;
     config: ToasterConfig;
@@ -65,7 +64,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     isDuplicatesPrevented = false;
     isCloseButton = true;
 
-    constructor(private modalService: NgbModal, protected Util: CallService, private toasterService: ToasterService) {
+    constructor(private modalService: NgbModal, protected Util: CallService, private toasterService: ToasterService, private dataService: DataService) {
 
         this.gridFiller = new GliderFiller();
         new CenterGridFiller();
@@ -77,7 +76,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         new LoafFiller();
         new GunFiller();
 
-        this.delayBetweenFrames = 100;
         // let rule_raw = [false, false, false, false, false, false, false, false];
         this.stop = false;
         Rule.createGameOfLifeRule();
@@ -86,9 +84,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.width = 400;
         this.cellSize = 15;
         this.color = '#00ff00';
-        this.iteration_number = 0;
         this.iteration_max = 0;
-        this.chronometer = new Chronometer();
     }
 
     @ViewChild('myCanvas') myCanvas: ElementRef;
@@ -103,6 +99,18 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     }
 
     ngOnInit() {
+
+        // We sync the data
+
+        this.dataService.currentIterations.subscribe(iterations => this.iterations = iterations);
+        this.dataService.currentAlive.subscribe(alive => this.alive = alive);
+        this.dataService.currentDelayBetweenFrames.subscribe(delayBetweenFrames => this.delayBetweenFrames = delayBetweenFrames);
+
+        this.resetData();
+
+        this.dataService.changeDelayBetweenFrames(100);
+
+        // We get messages
 
         this.subscription = this.Util.getClickCall().subscribe(message => {
 
@@ -147,7 +155,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                         this.color = result.color;
                         this.cellSize = result.cellSize;
                         this.iteration_max = result.iteration_max;
-                        this.delayBetweenFrames = result.delayBetweenFrames;
+                        this.dataService.changeDelayBetweenFrames(result.delayBetweenFrames);
                     }).catch((error) => {});
                     break;
                 case 'pause':
@@ -156,6 +164,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                 case 'stop':
                     this.stop = true;
                     this.clearGridFromCanvas();
+                    this.resetData();
                     this.grid = null;
                     break;
                 case 'game':
@@ -181,11 +190,17 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.reset();
     }
 
+    resetData() {
+        this.dataService.changeIterations(0);
+        this.dataService.changeAlive(0);
+        this.dataService.chronometer.reset();
+    }
+
     reset() {
 
+        this.resetData();
+
         this.grid = null;
-        this.iteration_number = 0;
-        this.chronometer.reset();
         this.stop = false;
 
         this.width = this.myCanvas.nativeElement.clientWidth;
@@ -212,7 +227,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.reset();
         }
 
-        this.chronometer.start();
+        this.dataService.chronometer.start();
 
         this.launch();
         this.stop = false;
@@ -224,8 +239,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.drawGridOnCanvas();
             this.grid = this.updateGridWithGameRules();
             setTimeout(() => {
-                if ( !this.stop && !(this.iteration_max > 0 && this.iteration_max -1 < this.iteration_number)) {
-                    this.iteration_number++;
+                if ( !this.stop && !(this.iteration_max > 0 && this.iteration_max -1 < this.iterations)) {
+                    this.dataService.changeIterations(this.iterations + 1);
                     this.launch();
                 }
             }, this.delayBetweenFrames);
@@ -255,7 +270,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
                 }
             }
         }
-        this.alive = liveCount;
+        this.dataService.changeAlive(liveCount);
     }
 
     updateGridWithGameRules() {

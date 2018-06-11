@@ -3,6 +3,7 @@ import { CallService } from './../../../Services/call.service';
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
+import { DataService } from '../../../Services/data.service';
 
 @Component({
   selector: 'ngx-header',
@@ -14,6 +15,10 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
+  iterations: number;
+  alive: number;
+  delayBetweenFrames: number;
+
   user: any;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
@@ -22,12 +27,17 @@ export class HeaderComponent implements OnInit {
               private menuService: NbMenuService,
               private userService: UserService,
               private analyticsService: AnalyticsService,
-              protected Util: CallService) {
+              protected Util: CallService,
+              protected dataService: DataService) {
   }
 
   ngOnInit() {
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
+
+      this.dataService.currentIterations.subscribe(iterations => this.iterations = iterations);
+      this.dataService.currentAlive.subscribe(alive => this.alive = alive);
+      this.dataService.currentDelayBetweenFrames.subscribe(delayBetweenFrames => this.delayBetweenFrames = delayBetweenFrames);
   }
 
   toggleSidebar(): boolean {
