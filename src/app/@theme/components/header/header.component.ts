@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
               private userService: UserService,
               private analyticsService: AnalyticsService,
               protected Util: CallService,
-              protected dataService: DataService) {
+              public dataService: DataService) {
   }
 
   ngOnInit() {
